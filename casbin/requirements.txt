@@ -1,0 +1,8 @@
+Flask==2.2.5
+casbin==1.38.0
+Werkzeug==2.2.3
+simpleeval>=0.9.11
+click>=8.0.0
+itsdangerous>=2.0
+Jinja2>=3.0
+importlib-metadata>=3.6.0

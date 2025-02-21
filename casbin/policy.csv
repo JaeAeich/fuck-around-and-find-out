@@ -1,0 +1,13 @@
+# Role inheritance
+g, alice, admin
+g, bob, user
+g, carol, user
+
+# Admin permissions
+p, admin, todos, read
+p, admin, todos, write
+p, admin, todos, delete
+
+# User permissions
+p, user, todos, read
+p, user, todos, write
