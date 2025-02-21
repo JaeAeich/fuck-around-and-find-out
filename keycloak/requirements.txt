@@ -1,0 +1,7 @@
+flask==3.0.2
+werkzeug==3.0.1
+requests==2.31.0
+PyJWT[crypto]==2.8.0
+python-jose==3.3.0
+cryptography==42.0.8
+python-keycloak==3.7.0
