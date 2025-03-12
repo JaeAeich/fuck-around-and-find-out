@@ -1,0 +1,130 @@
+{
+  "id": "demo",
+  "realm": "demo",
+  "enabled": true,
+  "displayName": "Demo keycloak",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "accessTokenLifespan": 86400,
+  "defaultRoles": [
+    "user"
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "admin",
+        "description": "Administrator role with full access"
+      },
+      {
+        "name": "user",
+        "description": "Default user role with basic access"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "nextjs-app",
+      "name": "Frontend",
+      "description": "Frontend",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "09a6aa88acd947ba334fd2d3f8bc9ec544557602e82fbf7db34f847e6429128c",
+      "redirectUris": [
+        "*",
+        "http://localhost/api/auth/callback/keycloak",
+        "http://localhost"
+      ],
+      "webOrigins": [
+        "http://localhost*",
+        "+",
+        "http://localhost:3000"
+      ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "access.token.lifespan": "86400"
+      },
+      "fullScopeAllowed": true,
+      "defaultClientScopes": [
+        "web-origins",
+        "roles",
+        "profile",
+        "email"
+      ]
+    },
+    {
+      "clientId": "jupyterhub",
+      "name": "jupytehub",
+      "description": "jupytehub",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "1facd1a920d01bc04b3c56775a4f2948081662d8c2ec144fb190f6c28896b738",
+      "redirectUris": [
+        "http://localhost/jupyter/hub/oauth_callback",
+        "http://localhost:8000/jupyter/hub/oauth_callback"
+      ],
+      "webOrigins": [
+        "http://localhost",
+        "+"
+      ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "access.token.lifespan": "86400"
+      },
+      "fullScopeAllowed": true,
+      "defaultClientScopes": [
+        "web-origins",
+        "roles",
+        "profile",
+        "email"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "alice",
+      "email": "alice@jaeaeich.com",
+      "firstName": "Alice",
+      "lastName": "Admin",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "admin",
+        "user"
+      ]
+    },
+    {
+      "username": "bob",
+      "email": "bob@jaeaeich.com",
+      "firstName": "Bob",
+      "lastName": "User",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "user"
+      ]
+    }
+  ]
+}
