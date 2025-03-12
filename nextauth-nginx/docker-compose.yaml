@@ -14,6 +14,8 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.1.3
     platform: linux/amd64
+    ports:
+      - "8080:8080"
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
@@ -25,6 +27,9 @@ services:
       PROXY_ADDRESS_FORWARDING: true
       KC_HOSTNAME_STRICT: false
       KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HOSTNAME_URL: http://localhost/auth
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_LOG_LEVEL: INFO
     volumes:
       - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm.json
     command:
@@ -33,22 +38,22 @@ services:
     networks:
       - app-network
   
-  nextjs-app:
-    build:
-      context: auth-button
-      dockerfile: Dockerfile
-    container_name: nextjs-app
-    restart: always
-    environment:
-      - NEXTAUTH_URL=http://localhost
-      - NEXTAUTH_SECRET=f643fc6885a9c8703e9ab0d2c5818371756f3fe1d4878e2836cb354a4ce11e84
-      - KEYCLOAK_CLIENT_ID=nextjs-app
-      - KEYCLOAK_CLIENT_SECRET=09a6aa88acd947ba334fd2d3f8bc9ec544557602e82fbf7db34f847e6429128c
-      - KEYCLOAK_ISSUER=http://reverse-proxy/auth/realms/demo
-      - NODE_ENV=development
-      - NEXTAUTH_DEBUG=true
-    networks:
-      - app-network
+  # nextjs-app:
+  #   build:
+  #     context: auth-button
+  #     dockerfile: Dockerfile
+  #   container_name: nextjs-app
+  #   restart: always
+  #   environment:
+  #     - NEXTAUTH_URL=http://localhost/
+  #     - NEXTAUTH_SECRET=f643fc6885a9c8703e9ab0d2c5818371756f3fe1d4878e2836cb354a4ce11e84
+  #     - KEYCLOAK_CLIENT_ID=nextjs-app
+  #     - KEYCLOAK_CLIENT_SECRET=09a6aa88acd947ba334fd2d3f8bc9ec544557602e82fbf7db34f847e6429128c
+  #     - KEYCLOAK_ISSUER=http://reverse-proxy:80/auth/realms/demo
+  #     - NODE_ENV=development
+  #     - NEXTAUTH_DEBUG=true
+  #   networks:
+  #     - app-network
 
 networks:
   app-network:

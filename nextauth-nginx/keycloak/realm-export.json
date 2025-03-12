@@ -30,16 +30,8 @@
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "09a6aa88acd947ba334fd2d3f8bc9ec544557602e82fbf7db34f847e6429128c",
-      "redirectUris": [
-        "*",
-        "http://localhost/api/auth/callback/keycloak",
-        "http://localhost"
-      ],
-      "webOrigins": [
-        "http://localhost*",
-        "+",
-        "http://localhost:3000"
-      ],
+      "redirectUris": ["*"],
+      "webOrigins": ["+"],
       "standardFlowEnabled": true,
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
