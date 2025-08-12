@@ -1,0 +1,11 @@
+services:
+  - name: policy_bundle_service
+    url: http://policy-service:8080
+
+bundles:
+  authz:
+    service: policy_bundle_service
+    resource: policies.tar.gz
+    polling:
+      min_delay_seconds: 5
+      max_delay_seconds: 10

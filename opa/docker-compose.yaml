@@ -1,0 +1,46 @@
+services:
+  restaurant-api:
+    build: ./restaurant-api
+    ports:
+      - '3000:3000'
+    depends_on:
+      - opa
+    environment:
+      - OPA_URL=http://opa:8181/v1/data/restaurant/authz/allow
+
+  policy-service:
+    build: ./policy-service
+    ports:
+      - '8080:8080'
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_DATABASE=policies_db
+    depends_on:
+      - postgres
+
+  opa:
+    image: openpolicyagent/opa:latest
+    ports:
+      - '8181:8181'
+    volumes:
+      - ./opa-config:/config
+    command:
+      - 'run'
+      - '--server'
+      - '--addr=0.0.0.0:8181'
+      - '--config-file=/config/config.yaml'
+    depends_on:
+      - policy-service
+
+  postgres:
+    image: postgres:17-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=policies_db
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
